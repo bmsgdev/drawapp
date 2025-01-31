@@ -3,11 +3,11 @@ import CanvasComponent from "./CanvasComponent.vue";
 import ToolBarComponent from "./ToolBarComponent.vue";
 </script>
 <template>
-  <div class="flex w-full">
-    <div class="w-[25%]">
+  <div class="flex w-full h-screen">
+    <div class="w-[15%]">
       <ToolBarComponent />
     </div>
-    <div class="w-[75%] bg-blue-500">
+    <div class="w-full bg-blue-500">
       <CanvasComponent />
     </div>
   </div>
