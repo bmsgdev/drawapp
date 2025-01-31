@@ -7,7 +7,7 @@ import ToolBarComponent from "./ToolBarComponent.vue";
     <div class="w-[15%]">
       <ToolBarComponent />
     </div>
-    <div class="w-full bg-gray-100">
+    <div class="w-full h-screen bg-gray-100">
       <CanvasComponent />
     </div>
   </div>
