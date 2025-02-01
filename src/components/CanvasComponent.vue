@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref, onMounted } from "vue";
+import { drawer } from "@/utils/Canvas";
 const canvas = ref<HTMLCanvasElement | null>();
 
 let lastCoord = ref<{ x: number; y: number } | null>(null);
@@ -28,14 +29,10 @@ const draw = (e: MouseEvent) => {
     x: e.clientX - rect.left,
     y: e.clientY - rect.top,
   };
-
   if (lastCoord.value && ctx) {
-    ctx.beginPath();
-    ctx.strokeStyle = "black";
-    ctx.moveTo(lastCoord.value.x, lastCoord.value.y);
-    ctx.lineTo(currentCoord.x, currentCoord.y);
-    ctx.stroke();
+    drawer(ctx, lastCoord.value,currentCoord,"black",5)
   }
+    lastCoord.value = currentCoord;
 };
 
 const resize = () => {
@@ -44,8 +41,8 @@ const resize = () => {
   canvas.value.height = window.innerHeight;
   canvas.value.width = window.innerWidth - toolbar.clientWidth;
 };
-window.addEventListener("resize", resize);
 onMounted(() => {
+  window.addEventListener("resize", resize);
   resize();
   //     const ctx = canvas.value?.getContext("2d");
   //   if (ctx) {
@@ -66,7 +63,6 @@ onMounted(() => {
 </script>
 <template>
   <canvas
-    class="border border-blue-500"
     ref="canvas"
     id="canvas"
     @mousedown="startDrawing"
