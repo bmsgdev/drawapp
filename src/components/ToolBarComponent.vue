@@ -3,7 +3,7 @@ import { Download, Eraser, Paintbrush, RotateCcw } from "lucide-vue-next";
 </script>
 <template>
   <div
-    class="card h-full bg-white gap-5 p-5 shadow-md shadow-purple-200/50 rounded-md"
+    class="toolbar card h-full bg-white gap-5 p-5 shadow-md shadow-purple-200/50 rounded-md"
   >
     <div>
       <div class="flex flex-col gap-2 justify-center p-5">
