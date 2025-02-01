@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import { ref, onMounted } from "vue";
 import { drawer } from "@/utils/Canvas";
+import { useDrawingStore } from "@/stores/useDrawingStore";
+const drawingStore = useDrawingStore();
 const canvas = ref<HTMLCanvasElement | null>();
 
 let lastCoord = ref<{ x: number; y: number } | null>(null);
-let isDrawing = ref(false);
 const startDrawing = (e: MouseEvent) => {
-  isDrawing.value = true;
+  drawingStore.setIsDrawing(true);
   const rect = canvas.value?.getBoundingClientRect();
   if (!rect) return;
   lastCoord.value = {
@@ -16,12 +17,12 @@ const startDrawing = (e: MouseEvent) => {
 };
 
 const stopDrawing = (e: MouseEvent) => {
-  isDrawing.value = false;
+  drawingStore.setIsDrawing(false);
   lastCoord.value = null;
 };
 
 const draw = (e: MouseEvent) => {
-  if (!isDrawing.value) return;
+  if (!drawingStore.isDrawing) return;
   const ctx = canvas.value?.getContext("2d");
   const rect = canvas.value?.getBoundingClientRect();
   if (!rect) return;
@@ -29,8 +30,12 @@ const draw = (e: MouseEvent) => {
     x: e.clientX - rect.left,
     y: e.clientY - rect.top,
   };
+  let c = drawingStore.color;
   if (lastCoord.value && ctx) {
-    drawer(ctx, lastCoord.value,currentCoord,"black",5)
+    if (drawingStore.isErayser) {
+      c = "#F3F4F6";
+    }
+    drawer(ctx, lastCoord.value,currentCoord,c,drawingStore.lineWidth)
   }
     lastCoord.value = currentCoord;
 };
