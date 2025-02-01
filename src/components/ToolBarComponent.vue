@@ -14,21 +14,21 @@ const drawingStore = useDrawingStore();
           <button :class="{
             'bg-blue-500':drawingStore.isErayser ===false
           }"
-          class=" flex items-center justify-center bg-blue-300 w-15 h-15 border border-white rounded-md cursor-pointer" @click="drawingStore.setIsErayser(false)">
+          class="flex items-center justify-center bg-blue-300 w-15 h-15 border border-white rounded-md cursor-pointer" @click="drawingStore.setIsErayser(false)">
             <Paintbrush :size="25" icon :class="{
             'text-white':drawingStore.isErayser ===false
           }" />
           </button>
-          {{ drawingStore.isErayser }}
           <button :class="{
             'bg-red-500':drawingStore.isErayser
-          }" class=" flex items-center justify-center bg-red-300 w-15 h-15 border border-white rounded-md cursor-pointer" @click="drawingStore.setIsErayser(true)">
+          }"
+           class=" flex items-center justify-center bg-red-300 w-15 h-15 border border-white rounded-md cursor-pointer" @click="drawingStore.setIsErayser(true)">
             <Eraser icon  :class="{
             'text-white':drawingStore.isErayser
           }"/>
           </button>
         </div>
-        <div class="flex flex-col">
+        <div class="flex flex-col" v-if="!drawingStore.isErayser">
           <label for="color">Color</label>
           <input class="w-full h-10 cursor-pointer" type="color"  v-model="drawingStore.color" @change="drawingStore.setColor(drawingStore.color)"/>
         </div>
@@ -36,11 +36,11 @@ const drawingStore = useDrawingStore();
           <label for="color">Range</label>
           <input class="w-full h-4 cursor-pointer" type="range" min="1" max="50" value="1" v-model="drawingStore.lineWidth" @change="drawingStore.setLineWidth(drawingStore.lineWidth)"/>        </div>
        <div class="flex flex-col items-center justify-center gap-2">
-          <button  class="hover:text-white flex items-center cursor-pointer justify-center w-full h-10 bg-blue-300 hover:bg-blue-500 gap-2 rounded-md">
+          <button  class="hover:text-white flex items-center cursor-pointer justify-center w-full h-10 bg-blue-300 hover:bg-blue-500 gap-2 rounded-md" @click="drawingStore.setIsClearAll(true)">
           <RotateCcw icon class=" hover:text-white"/>
           <p class="font-bold">Clear</p>
         </button>
-        <button class="flex items-center justify-center cursor-pointer w-full h-10 bg-green-300 hover:bg-green-500 gap-2 rounded-md">
+        <button class="flex items-center justify-center cursor-pointer w-full h-10 bg-green-300 hover:bg-green-500 gap-2 rounded-md" @click="drawingStore.setIsDownload(true)">
           <Download />
           <p>Download</p>
         </button>

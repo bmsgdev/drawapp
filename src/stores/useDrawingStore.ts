@@ -4,7 +4,9 @@ interface drawingState {
     color: string,
     lineWidth: number,
     isDrawing: boolean,
-    isErayser: boolean
+    isErayser: boolean,
+    isClearAll: boolean,
+    isDownload: boolean
 };
 
 export const useDrawingStore = defineStore('drawing', {
@@ -12,7 +14,9 @@ export const useDrawingStore = defineStore('drawing', {
         color: '#000000',
         lineWidth: 5,
         isDrawing: false,
-        isErayser: false
+        isErayser: false,
+        isClearAll: false,
+        isDownload:false,
     }),
     actions: {
         setColor(color: string) {
@@ -26,6 +30,12 @@ export const useDrawingStore = defineStore('drawing', {
         },
         setIsErayser(isErayser: boolean) {
             this.isErayser = isErayser;
+        },
+        setIsClearAll(isClearAll: boolean) {
+            this.isClearAll = isClearAll;
+        },
+        setIsDownload(isDownload: boolean) {
+            this.isDownload = isDownload;
         }
     }
 });

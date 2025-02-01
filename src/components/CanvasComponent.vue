@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { ref, onMounted } from "vue";
-import { drawer } from "@/utils/Canvas";
+import { ref, onMounted, watch, watchEffect } from "vue";
+import { drawer, download } from "@/utils/Canvas";
 import { useDrawingStore } from "@/stores/useDrawingStore";
 const drawingStore = useDrawingStore();
 const canvas = ref<HTMLCanvasElement | null>();
@@ -65,6 +65,21 @@ onMounted(() => {
   //   }
   //   console.log(canvas.value);
 });
+watchEffect(() => {
+  if (drawingStore.isClearAll) {
+    if (!canvas.value) return;
+    const ctx = canvas.value.getContext("2d");
+    if (ctx) {
+      ctx.clearRect(0, 0, canvas.value.width, canvas.value.height);
+    }
+    drawingStore.setIsClearAll(false);
+  }
+  if (drawingStore.isDownload) {
+    if (!canvas.value) return;
+    download(canvas.value);
+    drawingStore.isDownload = false
+  }
+})
 </script>
 <template>
   <canvas
